@@ -1,0 +1,45 @@
+{
+    "persist_indexes": true,
+    "eager_indexing_groups": [
+        [
+            {
+                "name": "public",
+                "variables": []
+            }
+        ],
+        [
+            {
+                "name": "clean",
+                "variables": []
+            }
+        ]
+    ],
+    "types": [
+        {
+            "type": "company",
+            "on_path": "companies",
+            "rdf_type": "http://schema.org/Organization",
+            "properties": {
+                "name": "http://schema.org/name"
+            }
+        },
+        {
+            "type": "employee",
+            "on_path": "employees",
+            "rdf_type": "http://schema.org/Person",
+            "properties": {
+                "given-name": "http://schema.org/givenName",
+                "family-name": "http://schema.org/familyName"
+            }
+        },
+        {
+            "type": "project",
+            "on_path": "projects",
+            "rdf_type": "http://schema.org/Project",
+            "properties": {
+                "name": "http://schema.org/name",
+                "description": "http://schema.org/description"
+            }
+        }
+    ]
+}
