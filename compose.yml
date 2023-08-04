@@ -11,12 +11,16 @@ services:
       - dispatcher:dispatcher
     ports:
       - '80:80'
+    networks:
+      - portfolio-manager
   dispatcher:
     image: semtech/mu-dispatcher:2.0.0
     links:
       - resource:resource
     volumes:
       - ./config/dispatcher:/config
+    networks:
+      - portfolio-manager
   database:
     image: semtech/mu-authorization:0.6.0-beta.5
     environment:
@@ -24,6 +28,8 @@ services:
       ERROR_ON_UNWRITTEN_DATA: 'true'
     volumes:
       - ./config/authorization:/config
+    networks:
+      - portfolio-manager
   triplestore:
     image: redpencil/virtuoso:1.0.0
     environment:
@@ -34,6 +40,8 @@ services:
     volumes:
       - ./data/db:/data
       - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
+    networks:
+      - portfolio-manager
   migrations:
     image: semtech/mu-migrations-service:0.8.0
     links:
@@ -42,12 +50,16 @@ services:
       - ./config/migrations:/data/migrations
     environment:
       MU_APPLICATION_GRAPH: 'http://mu.semte.ch/application' #default
+    networks:
+      - portfolio-manager
   resource:
     image: semtech/mu-cl-resources:1.20.0
     links:
       - triplestore:database
     volumes:
       - ./config/resources:/config
+    networks:
+      - portfolio-manager
   resource-cache:
     image: semtech/mu-cache:2.0.0
     links:
@@ -55,15 +67,25 @@ services:
     environment:
       LOG_CACHE_KEYS: 'true'
       LOG_CLEAR_KEYS: 'true'
+    networks:
+      - portfolio-manager
   search:
     image: semtech/mu-search:0.8.0
     links:
       - triplestore:database
     volumes:
       - ./config/search:/config
+    networks:
+      - portfolio-manager
   elasticsearch:
     image: semtech/mu-search-elastic-backend:1.0.0
     volumes:
       - ./data/elasticsearch/:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
+    networks:
+      - portfolio-manager
+
+networks:
+  portfolio-manager:
+    name: portfolio-manager
