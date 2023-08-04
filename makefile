@@ -4,7 +4,6 @@ list:
 	@printf "\n"
 	@printf "Open %s: %s\n" "project source code $(PROJECT_SOURCE_CODE)"
 	@printf "\n"
-	@printf "Open %s: %s\n" "Portfolio Manager" "$(APPLICATION_DOMAIN):4200"
 	@printf "Open %s: %s\n" "resource COMPANIES" "$(APPLICATION_DOMAIN)/companies"
 	@printf "Open %s: %s\n" "resource EMPLOYEES" "$(APPLICATION_DOMAIN)/employees"
 	@printf "Open %s: %s\n" "resource PROJECTS" "$(APPLICATION_DOMAIN)/projects"
